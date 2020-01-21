@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class DetailsResponse {
     @SerializedName("symbol")
-    var symbol : String? = "Brak danych"
-    // dospisac profile ...
+    var symbol : String = "Brak danych"
+    @SerializedName("profile")
+    var profile :ProfileResponse = ProfileResponse()
 }

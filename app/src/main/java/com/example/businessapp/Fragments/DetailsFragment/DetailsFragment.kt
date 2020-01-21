@@ -34,7 +34,7 @@ class DetailsFragment : Fragment() {
             // jesli bedzie jakas zmiana w obserwowanej Libe Dacie to sie wykona
             // jesli details nie jest nullem to wykonaj
             if(details != null){
-                view.findViewById<TextView>(R.id.testText).text = details.symbol
+                view.findViewById<TextView>(R.id.testText).text = details.profile.companyName
             }
             else{
                 view.findViewById<TextView>(R.id.testText).text = "details = null"

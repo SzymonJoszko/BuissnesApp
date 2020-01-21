@@ -50,7 +50,6 @@ class AllCompaniesFragment : Fragment(),
 
     // funkcja wywolujaca sie podczas wykrycia zdarzenia onClick na danym holderze
     override fun onElementClick(symbol: String){
-        Log.d("isClicked??", "Clicked" + symbol)
 
         // tworzenie obiektu fragmentu
         val detailsFragment = DetailsFragment()
