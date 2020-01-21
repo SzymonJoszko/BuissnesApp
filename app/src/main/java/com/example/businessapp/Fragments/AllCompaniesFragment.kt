@@ -2,6 +2,7 @@ package com.example.businessapp.Fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businessapp.R
 import kotlinx.android.synthetic.main.fragment_all_companies.*
 
-class AllCompaniesFragment : Fragment() {
+// klasa implementuje dodatkowo interfejs posiadajacy funkcje opdowiadajaca na zdarzenie onClick
+class AllCompaniesFragment : Fragment(), IOnClickElementListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +40,15 @@ class AllCompaniesFragment : Fragment() {
             if(companies != null){
                 // dodawanie elementow do recycler view
                 rec_view.layoutManager = LinearLayoutManager(activity!!.baseContext)
-                var adapter = AdapterList(companies)
+                var adapter = AdapterList(companies, this)
                 rec_view.adapter = adapter
             }
         })
     }
 
+    // funkcja wywolujaca sie podczas wykrycia zdarzenia onClick na danym holderze
+    override fun onElementClick(symbol: String){
+        Log.d("isClicked??", "Clicked" + symbol)
+    }
 
 }
