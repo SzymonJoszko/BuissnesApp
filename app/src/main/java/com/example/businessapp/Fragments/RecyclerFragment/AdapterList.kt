@@ -1,4 +1,4 @@
-package com.example.businessapp.Fragments
+package com.example.businessapp.Fragments.RecyclerFragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,10 @@ class AdapterList(var list: AllCompaniesResponse, val onClickElementListener: IO
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.one_row, parent, false)
-        return ViewHolder(view, onClickElementListener)
+        return ViewHolder(
+            view,
+            onClickElementListener
+        )
     }
 
     override fun getItemCount(): Int {

@@ -2,7 +2,7 @@ package com.example.businessapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.businessapp.Fragments.AllCompaniesFragment
+import com.example.businessapp.Fragments.RecyclerFragment.AllCompaniesFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // tworzenie obieku fragmentu
-        val allCompaniesFragment = AllCompaniesFragment()
+        val allCompaniesFragment =
+            AllCompaniesFragment()
         // tworzenie fragment managera
         val frgmentManager = supportFragmentManager
 
