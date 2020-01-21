@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 import com.example.businessapp.R
 
@@ -23,7 +25,22 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.testText).text = arguments!!.getString("symbol")
+        // tworzenie view modelu
+        val viewModel = ViewModelProviders.of(this, DetailsViewModelFactory(arguments!!.getString("symbol")!!)).get(DetailsViewModel::class.java)
+
+        // obserwowanie Live Daty w view modelu
+        viewModel.details.observe(this, Observer { details ->
+
+            // jesli bedzie jakas zmiana w obserwowanej Libe Dacie to sie wykona
+            // jesli details nie jest nullem to wykonaj
+            if(details != null){
+                view.findViewById<TextView>(R.id.testText).text = details.symbol
+            }
+            else{
+                view.findViewById<TextView>(R.id.testText).text = "details = null"
+            }
+        })
+
     }
 
 }

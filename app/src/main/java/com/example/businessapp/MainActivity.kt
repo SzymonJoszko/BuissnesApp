@@ -18,5 +18,19 @@ class MainActivity : AppCompatActivity() {
 
         // dodawnaie fragmentu do main activity
         frgmentManager.beginTransaction().add(R.id.fragment_container, allCompaniesFragment).commit()
+
+    }
+
+    // tymczasowe rozwiazanie do wracania
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        // tworzenie obieku fragmentu
+        val allCompaniesFragment =
+            AllCompaniesFragment()
+        // tworzenie fragment managera
+        val frgmentManager = supportFragmentManager
+
+        // zamiana fragmentu
+        frgmentManager.beginTransaction().replace(R.id.fragment_container, allCompaniesFragment).commit()
     }
 }
