@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.businessapp.Fragments.DetailsFragment.DetailsFragment
 
 import com.example.businessapp.R
 import kotlinx.android.synthetic.main.fragment_all_companies.*
@@ -50,6 +51,22 @@ class AllCompaniesFragment : Fragment(),
     // funkcja wywolujaca sie podczas wykrycia zdarzenia onClick na danym holderze
     override fun onElementClick(symbol: String){
         Log.d("isClicked??", "Clicked" + symbol)
+
+        // tworzenie obiektu fragmentu
+        val detailsFragment = DetailsFragment()
+        // tworzenie obiektu bundle do przekazania symbolu do details fragmentu
+        val bundle = Bundle()
+        // dodanie symbolu do bundle
+        bundle.putString("symbol", symbol)
+        // dodanie bundle do fragmentu
+        detailsFragment.arguments = bundle
+
+        // tworzenie fragment managera
+        val frgmentManager = activity!!.supportFragmentManager
+
+        // zamiana fragmentow
+        fragmentManager!!.beginTransaction().replace(R.id.fragment_container, detailsFragment).commit()
+
     }
 
 }
