@@ -18,7 +18,7 @@ class AllCompanies {
         val url = "https://financialmodelingprep.com/api/v3/"
         val retrofit = Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build()
 
-        val service = retrofit.create(IAllCompaniesSercices::class.java)
+        val service = retrofit.create(IAllCompaniesServices::class.java)
         val call = service.getAllCompanies()
 
         call.enqueue(object : Callback<AllCompaniesResponse>{

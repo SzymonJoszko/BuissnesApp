@@ -1,4 +1,4 @@
-package com.example.businessapp.Fragments
+package com.example.businessapp.Fragments.RecyclerFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
