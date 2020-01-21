@@ -34,6 +34,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.0.0'
     // potrzebene do uzywania gsona
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    // potrzebne do ladowania obrazow z url
+    implementation 'com.squareup.picasso:picasso:2.71828'
     // dodane automatycznie
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'

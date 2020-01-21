@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.businessapp.R
+import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment() {
 
@@ -34,10 +37,18 @@ class DetailsFragment : Fragment() {
             // jesli bedzie jakas zmiana w obserwowanej Libe Dacie to sie wykona
             // jesli details nie jest nullem to wykonaj
             if(details != null){
-                view.findViewById<TextView>(R.id.testText).text = details.profile.companyName
+                view.findViewById<TextView>(R.id.company_name_text_view).text = details.profile.companyName
+                // picasso dodany do gardla - do wsadzenia url do imageView
+                Picasso.get().load(details.profile.image).into(view.findViewById<ImageView>(R.id.image_view))
+                view.findViewById<TextView>(R.id.price_text_view).text = "Price: " + details.profile.price + " " + details.profile.changesProcentage
+                view.findViewById<TextView>(R.id.industry_text_view).text = "Industry: " + details.profile.industry
+                view.findViewById<TextView>(R.id.sector_text_view).text = "Sector: " + details.profile.sector
+                view.findViewById<TextView>(R.id.description_text_view).text = details.profile.description
+                view.findViewById<TextView>(R.id.ceo_text_view).text = "Ceo: " + details.profile.ceo
+                view.findViewById<TextView>(R.id.website_text_view).text = details.profile.website
             }
             else{
-                view.findViewById<TextView>(R.id.testText).text = "details = null"
+                view.findViewById<TextView>(R.id.company_name_text_view).text = "details = null"
             }
         })
 
