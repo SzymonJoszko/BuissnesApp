@@ -12,7 +12,11 @@ import android.widget.TextView
 import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+<<<<<<< HEAD
 import com.example.businessapp.Fragments.chartFragment.chartFragment
+=======
+import com.example.businessapp.MainActivity
+>>>>>>> 9922e5e2cc61f7c1e1fe2262e5cdb0e2de0af437
 
 import com.example.businessapp.R
 import com.squareup.picasso.Picasso

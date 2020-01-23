@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.businessapp.Fragments.DetailsFragment.DetailsFragment
+import com.example.businessapp.MainActivity
 
 import com.example.businessapp.R
 import kotlinx.android.synthetic.main.fragment_all_companies.*
@@ -63,8 +64,12 @@ class AllCompaniesFragment : Fragment(),
         // tworzenie fragment managera
         val frgmentManager = activity!!.supportFragmentManager
 
+        // tworzenie tagu i dodawanie go do currentFragment
+        val tagDetailsFragment :String = "DETAILS_FRAGMENT"
+        (activity as MainActivity).setMyCurrentFragment(tagDetailsFragment)
+
         // zamiana fragmentow
-        fragmentManager!!.beginTransaction().replace(R.id.fragment_container, detailsFragment).commit()
+        fragmentManager!!.beginTransaction().replace(R.id.fragment_container, detailsFragment, tagDetailsFragment).commit()
 
     }
 
