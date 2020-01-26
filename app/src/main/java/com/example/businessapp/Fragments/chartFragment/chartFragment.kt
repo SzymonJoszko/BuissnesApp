@@ -1,5 +1,6 @@
 package com.example.businessapp.Fragments.chartFragment
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.annotation.RequiresApi
 
 import com.example.businessapp.R
 import com.github.mikephil.charting.charts.LineChart
@@ -32,6 +34,7 @@ class chartFragment : Fragment() {
         var chart: LineChart? = null
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
