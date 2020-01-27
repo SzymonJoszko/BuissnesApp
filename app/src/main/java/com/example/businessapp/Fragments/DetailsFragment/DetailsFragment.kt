@@ -30,7 +30,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // tworzenie view modelu
-        val viewModel = ViewModelProviders.of(this, DetailsViewModelFactory(arguments!!.getString("symbol")!!)).get(DetailsViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, DetailsViewModelFactory(arguments!!.getString("symbol")!!, activity!!.baseContext)).get(DetailsViewModel::class.java)
 
         // obserwowanie Live Daty w view modelu
         viewModel.details.observe(this, Observer { details ->
@@ -47,6 +47,9 @@ class DetailsFragment : Fragment() {
                 view.findViewById<TextView>(R.id.description_text_view).text = details.profile.description
                 view.findViewById<TextView>(R.id.ceo_text_view).text = "Ceo: " + details.profile.ceo
                 view.findViewById<TextView>(R.id.website_text_view).text = details.profile.website
+
+                // tymczasowe dodawanie do favorite
+                viewModel.addToFavorite(details.symbol, details.profile.companyName, details.profile.price)
             }
             else{
                 view.findViewById<TextView>(R.id.company_name_text_view).text = "details = null"
