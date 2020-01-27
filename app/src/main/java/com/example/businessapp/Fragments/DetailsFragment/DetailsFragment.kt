@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.businessapp.MainActivity
+import com.example.businessapp.Fragments.chartFragment.ChartFragment
+
 
 import com.example.businessapp.R
 import com.squareup.picasso.Picasso
@@ -47,6 +48,22 @@ class DetailsFragment : Fragment() {
                 view.findViewById<TextView>(R.id.description_text_view).text = details.profile.description
                 view.findViewById<TextView>(R.id.ceo_text_view).text = "Ceo: " + details.profile.ceo
                 view.findViewById<TextView>(R.id.website_text_view).text = details.profile.website
+                view.findViewById<Button>(R.id.button_chart_fragment).setOnClickListener {
+                    // tworzenie obiektu fragmentu
+                    val chartFragment = ChartFragment()
+                    // tworzenie obiektu bundle do przekazania symbolu do details fragmentu
+                    val bundle = Bundle()
+                    // dodanie symbolu do bundle
+                    bundle.putString("symbol", details.symbol)
+                    // dodanie bundle do fragmentu
+                    chartFragment.arguments = bundle
+
+                    // tworzenie fragment managera
+                    val fragmentManager = activity!!.supportFragmentManager
+
+                    // zamiana fragmentow // uwaga tutaj testuje
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, chartFragment,"ChartFragment").commit()
+                }
 
                 // tymczasowe dodawanie do favorite
                 viewModel.addToFavorite(details.symbol, details.profile.companyName, details.profile.price)
