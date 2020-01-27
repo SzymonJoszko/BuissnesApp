@@ -1,26 +1,26 @@
 package com.example.businessapp.Fragments.chartFragment
 
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.example.businessapp.Model.Chart.MyValueFormatter
 import com.example.businessapp.R
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 
-class chartFragment : Fragment() {
+class ChartFragment : Fragment() {
 
+    private lateinit var mLineChart: LineChart
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,54 +43,70 @@ class chartFragment : Fragment() {
         // obserwowanie Live Daty w view modelu
         viewModel.allChartList.observe(this, Observer { charts ->
             if (charts != null) {
+
+                mLineChart = view.findViewById(R.id.testLineChart)
                 val entries = ArrayList<Entry>()
+                val xValsDateLabel = ArrayList<String>()
                 val size = charts.historical!!.size
-                var timeInterval = 5
-                if (arguments!!.getString("interval") != null){
+                var timeInterval = 5  //domyslny przedział czasowy 5 dni
+                //sprawdzenie czy istnieje ustawiony interwał czasowy z guzików
+                if (arguments!!.getString("interval") != null) {
                     timeInterval = arguments!!.getString("interval")!!.toInt()
                 }
 
                 //guziki od dat
-                view.findViewById<Button>(R.id.button_chart_5days).setOnClickListener { SetTimeInterval(5) }
-                view.findViewById<Button>(R.id.button_chart_month).setOnClickListener {SetTimeInterval(30)}
-                view.findViewById<Button>(R.id.button_chart_year).setOnClickListener {SetTimeInterval(365)}
-                view.findViewById<Button>(R.id.button_chart_all).setOnClickListener {SetTimeInterval(size)}
+                view.findViewById<Button>(R.id.button_chart_5days)
+                    .setOnClickListener { SetTimeInterval(5) }
+                view.findViewById<Button>(R.id.button_chart_month)
+                    .setOnClickListener { SetTimeInterval(30) }
+                view.findViewById<Button>(R.id.button_chart_year)
+                    .setOnClickListener { SetTimeInterval(365) }
+                view.findViewById<Button>(R.id.button_chart_all)
+                    .setOnClickListener { SetTimeInterval(size) }
 
-                // policzyc wszystkie elementy
-                //zrobic petle chwytajaca ostatnie (ilosc)
-                //dodac entry na tej podstawie
-                //~wiki
+                //zmienna odpowiedzialna za odpowiednia iteracje punktów na wykresie
+                var iter = 0
 
 
-                //petla od size to ostatnia data
+                //petla do dodawania wartosci do wykresu od najmniejszej daty
                 for (x in size - timeInterval until size) {
                     var chartDate = charts.historical!![x].date
                     var chartPrice = charts.historical!![x].price
-
-                    //przekształcenie daty na timestamp //na razie nie uzyte bo problem z poisem osi x
-                    val l = LocalDate.parse(chartDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                    val unix = l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
-                    Log.i(tag, "to unix: " + unix.toString())
-
-                    entries.add(Entry(x.toFloat(), chartPrice!!.toFloat()))
+                    //tu zrobilem z tym iter zeby było równo
+                    entries.add(Entry(iter++.toFloat(), chartPrice!!.toFloat()))
+                    xValsDateLabel.add(chartDate.toString())
                 }
 
-                //dane do wykresu
-                val dataSet = LineDataSet(entries, "Test")
-                val lineData = LineData(dataSet)
-                view.findViewById<LineChart>(R.id.testLineChart).data = lineData
-                view.findViewById<LineChart>(R.id.testLineChart).invalidate()
 
+                val set1 = LineDataSet(entries, "Prices")
+                set1.fillAlpha = 110
+                var dataSet = java.util.ArrayList<ILineDataSet>()
+                dataSet.add(set1)
+                mLineChart.data = LineData(dataSet)
+
+                set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+                mLineChart.description.text = " price history"
+                mLineChart.legend.isEnabled = false
+                mLineChart.invalidate()
+                mLineChart.axisRight.isEnabled = false
+                mLineChart.axisLeft.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+                mLineChart.axisRight.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+
+                val xAxis = mLineChart.xAxis
+                xAxis.position = XAxis.XAxisPosition.BOTTOM
+                xAxis.setDrawGridLines(true)
+                xAxis.labelCount = 4
+                xAxis.granularity = 1f
+                xAxis.isGranularityEnabled = true
+                xAxis.valueFormatter = (MyValueFormatter(xValsDateLabel))
             }
         })
-
     }
 
 
     //funkcja odswiezajaca fragment z nowymi danymi
-    //problem z funkcja jest taki ze bierze np 365 ostatnich wpisów a nie 365 ostatnich dni, moze sie uda jeszcze przerobic i wogole to wrzucic to do modelu
-    fun SetTimeInterval(days:Int){
-        val chartFragment = chartFragment()
+    fun SetTimeInterval(days: Int) {
+        val chartFragment = ChartFragment()
         val bundle = Bundle()
         bundle.putString("symbol", arguments!!.getString("symbol"))
         bundle.putString("interval", days.toString())
@@ -100,6 +116,5 @@ class chartFragment : Fragment() {
     }
 
 
-
-
 }
+

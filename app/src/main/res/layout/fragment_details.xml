@@ -106,9 +106,15 @@
             android:id="@+id/button_chart_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="382dp" />
+            android:layout_marginStart="160dp"
+            android:layout_marginEnd="163dp"
+            android:layout_marginBottom="80dp"
+            android:text="Show price history"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_text_view"
+            app:layout_constraintVertical_bias="0.984" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
