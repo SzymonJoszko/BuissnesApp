@@ -13,9 +13,9 @@
     </com.github.mikephil.charting.charts.LineChart>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_chart_5days"
@@ -41,5 +41,11 @@
             android:layout_height="wrap_content"
             android:text="ALL" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download" />
 
 </LinearLayout>
