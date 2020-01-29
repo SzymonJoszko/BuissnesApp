@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/testLineChart"
@@ -13,9 +19,9 @@
     </com.github.mikephil.charting.charts.LineChart>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_chart_5days"
@@ -41,5 +47,8 @@
             android:layout_height="wrap_content"
             android:text="ALL" />
     </LinearLayout>
+        </LinearLayout>
 
-</LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
