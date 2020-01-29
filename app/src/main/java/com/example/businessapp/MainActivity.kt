@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val tagAllCompaniesFragment :String = "ALL_COMPANIES_FRAGMENT"
     private var currentFragment :String = tagAllCompaniesFragment
     private val currentTagFragmentKey :String = "FRAGMENT_TAG"
+    private var isFavorite :Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +32,19 @@ class MainActivity : AppCompatActivity() {
         // przypisywanie obecnego fragmentu
         if(savedInstanceState != null){
             currentFragment = savedInstanceState.getString(currentTagFragmentKey)!!
+            if(currentFragment == tagAllCompaniesFragment){
+                isFavorite = savedInstanceState.getBoolean("favorite")
+            }
         }
 
         // dodawnaie obecnego fragmentu do main activity
         if(currentFragment == tagAllCompaniesFragment) {
+            // tworzenie obiektu bundle do przekazania symbolu do details fragmentu
+            val bundle = Bundle()
+            // dodanie symbolu do bundle
+            bundle.putBoolean("favorite", isFavorite)
+            // dodanie bundle do fragmentu
+            allCompaniesFragment.arguments = bundle
             frgmentManager.beginTransaction()
                 .replace(R.id.fragment_container, allCompaniesFragment, currentFragment).commit()
         }else{
@@ -51,6 +61,10 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         outState.putString(currentTagFragmentKey, currentFragment)
+
+        if(currentFragment == tagAllCompaniesFragment){
+            outState.putBoolean("favorite", isFavorite)
+        }
     }
 
 
@@ -67,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         // tworzenie obiektu bundle do przekazania symbolu do details fragmentu
         val bundle = Bundle()
         // dodanie symbolu do bundle
+        isFavorite = false
         bundle.putBoolean("favorite", false)
         // dodanie bundle do fragmentu
         allCompaniesFragment.arguments = bundle
@@ -96,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             // tworzenie obiektu bundle do przekazania symbolu do details fragmentu
             val bundle = Bundle()
             // dodanie symbolu do bundle
+            isFavorite = true
             bundle.putBoolean("favorite", true)
             // dodanie bundle do fragmentu
             allCompaniesFragment.arguments = bundle
