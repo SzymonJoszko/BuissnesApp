@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.fragment_chart.*
 
@@ -112,8 +113,17 @@ class ChartFragment : Fragment() {
 
 
                 buttonDownload.setOnClickListener {
-                    mLineChart.saveToGallery(arguments!!.getString("symbol")+"Chart"+timeInterval)
-                    Toast.makeText(activity!!, "Chart downloaded!", Toast.LENGTH_LONG).show()
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                            activity!!,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                    ) {
+                        mLineChart.saveToGallery(arguments!!.getString("symbol") + "Chart" + timeInterval)
+                        Toast.makeText(activity!!, "Chart downloaded!", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        Toast.makeText(activity!!, "Chart didn't download!", Toast.LENGTH_LONG).show()
+                    }
                 }
 
 
@@ -140,11 +150,11 @@ class ChartFragment : Fragment() {
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         ) {
-            Toast.makeText(
+            ActivityCompat.requestPermissions(
                 activity!!,
-                "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.",
-                Toast.LENGTH_LONG
-            ).show()
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_CODE
+            )
         } else {
             ActivityCompat.requestPermissions(
                 activity!!,
@@ -152,6 +162,7 @@ class ChartFragment : Fragment() {
                 PERMISSION_REQUEST_CODE
             )
         }
+
     }
 
 }
