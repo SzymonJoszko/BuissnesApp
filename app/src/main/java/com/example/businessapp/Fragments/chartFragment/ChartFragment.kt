@@ -112,7 +112,7 @@ class ChartFragment : Fragment() {
         bundle.putString("interval", days.toString())
         chartFragment.arguments = bundle
         val fragmentManager = activity!!.supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, chartFragment).commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, chartFragment, "ChartFragment").commit()
     }
 
 
