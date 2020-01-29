@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.businessapp.Fragments.chartFragment.ChartFragment
+import com.example.businessapp.MainActivity
 
 
 import com.example.businessapp.R
@@ -62,6 +63,7 @@ class DetailsFragment : Fragment() {
                     val fragmentManager = activity!!.supportFragmentManager
 
                     // zamiana fragmentow // uwaga tutaj testuje
+                    (activity as MainActivity).setMyCurrentFragment("ChartFragment")
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, chartFragment,"ChartFragment").commit()
                 }
 
