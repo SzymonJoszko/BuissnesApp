@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -53,7 +54,8 @@ class ChartFragment : Fragment() {
         // obserwowanie Live Daty w view modelu
         viewModel.allChartList.observe(this, Observer { charts ->
             if (charts != null) {
-
+                
+                view.findViewById<TextView>(R.id.textViewChartSymbol).text = arguments!!.getString("symbol") +" price history"
 
                 mLineChart = view.findViewById(R.id.testLineChart)
                 val entries = ArrayList<Entry>()
