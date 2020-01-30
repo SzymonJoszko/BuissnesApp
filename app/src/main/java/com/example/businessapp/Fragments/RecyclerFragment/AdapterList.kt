@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.businessapp.Model.AllCompanies.AllCompaniesResponse
+import com.example.businessapp.Model.AllCompanies.CompanyResponse
 import com.example.businessapp.R
 
 class AdapterList(var list: AllCompaniesResponse, val onClickElementListener: IOnClickElementListener) : RecyclerView.Adapter<AdapterList.ViewHolder>() {
@@ -24,9 +25,16 @@ class AdapterList(var list: AllCompaniesResponse, val onClickElementListener: IO
 
     // usatwaianie w layoucie wartosci z company
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var company = list.companyResponses!![position]
+
+        //zadanie egzamin ciezkie
+        var sortList:MutableList<CompanyResponse> = list.companyResponses!!.toMutableList()
+        sortList.sortByDescending { position:CompanyResponse -> position.price }
+
+        var company = sortList[position]
         holder.companySymbol.text = company!!.symbol
         holder.companyName.text = company!!.name
+        //egzamin zadanie ciezkie
+        holder.companyPrice.text = company!!.price
     }
 
 
@@ -42,6 +50,8 @@ class AdapterList(var list: AllCompaniesResponse, val onClickElementListener: IO
         // przypisanie ref layoutow
         val companySymbol = itemView.findViewById<TextView>(R.id.one_symbol_text_view)
         val companyName = itemView.findViewById<TextView>(R.id.one_name_text_view)
+        //egzamin zadanie ciezkie
+        val companyPrice = itemView.findViewById<TextView>(R.id.one_price_text_view)
 
         // implementacja funkcji z interfaceu
         override fun onClick(v: View?) {

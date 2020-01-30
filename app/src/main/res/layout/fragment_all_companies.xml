@@ -23,18 +23,25 @@
 
             <TextView
                 android:id="@+id/symobol_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="2"
                 android:text="Symbol" />
 
             <TextView
                 android:id="@+id/name_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:text="Name" />
+            <TextView
+                android:id="@+id/price_text_view"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Price" />
         </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_view"

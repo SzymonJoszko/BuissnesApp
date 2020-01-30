@@ -10,7 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.businessapp.Fragments.DetailsFragment.DetailsFragment
 import com.example.businessapp.Fragments.RecyclerFragment.AllCompaniesFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -86,8 +88,25 @@ class MainActivity : AppCompatActivity() {
         // dodanie bundle do fragmentu
         allCompaniesFragment.arguments = bundle
 
-        // zamiana fragmentu
-        frgmentManager.beginTransaction().replace(R.id.fragment_container, allCompaniesFragment).commit()
+        //zadanie egzamin ciezkie
+        val detailsFragment = DetailsFragment()
+        val bundle1 = Bundle()
+
+        val fragmentCharts = frgmentManager.findFragmentByTag("ChartFragment")
+        detailsFragment.arguments = bundle1
+
+        if(fragmentCharts != null && fragmentCharts.isVisible){
+            bundle1.putString("symbol",fragmentCharts!!.arguments!!.getString("symbol"))
+            frgmentManager.beginTransaction().replace(R.id.fragment_container, detailsFragment).commit()
+        }
+        else
+        {
+            // zamiana fragmentu
+            frgmentManager.beginTransaction().replace(R.id.fragment_container, allCompaniesFragment).commit()
+        }
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

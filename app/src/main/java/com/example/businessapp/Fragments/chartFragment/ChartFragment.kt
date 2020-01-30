@@ -44,7 +44,7 @@ class ChartFragment : Fragment() {
         viewModel.allChartList.observe(this, Observer { charts ->
             if (charts != null) {
 
-                mLineChart = view.findViewById(R.id.testLineChart)
+                mLineChart = view.findViewById<LineChart>(R.id.testLineChart)
                 val entries = ArrayList<Entry>()
                 val xValsDateLabel = ArrayList<String>()
                 val size = charts.historical!!.size
